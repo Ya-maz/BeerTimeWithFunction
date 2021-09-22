@@ -1,0 +1,21 @@
+.Registration {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    margin: 100px auto;
+    padding: 20px 0;
+    width: 35%;
+    background-color: #c9c3a2;
+    border-radius: 20px;
+    min-width: 500px;
+}
+
+.Registration > div {
+    width: 100%;
+
+}
+
+.Registration h1 {
+    color: #3e2109;
+    text-align:center;
+}
