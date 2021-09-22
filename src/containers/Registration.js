@@ -1,9 +1,26 @@
 import React from 'react'
 import classes from './Registration.module.css'
+import open from './RegOpen.module.css'
+import close from './RegClose.module.css'
 import Input from '../components/UI/Input/Input'
 
 export default class Registration extends React.Component {
+    constructor(props){
+        super(props)    
+        console.log('Registration', props)
+        this.cls = [classes.Registration]
+    }
 
+    // classesHandler = () => {
+    //     //не приходит isOpen
+    //     if (this.props.isOpen){
+    //         this.cls.push(open.Registration)
+    //     } else{
+    //         this.cls.push(close.Registration)
+    //     }
+    //     return this.cls.join(' ')
+    
+    // }
     registerHandler = () => {
 
     }
@@ -11,7 +28,7 @@ export default class Registration extends React.Component {
         event.preventDefault()
     }
 
-    render () {
+    render() {
         return (
             <div className={classes.Registration}>
                 <div>

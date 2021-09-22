@@ -1,4 +1,4 @@
-import React from 'react'
+ import React from 'react'
 import classes from './Layout.module.css'
 import Menu from './../components/Menu/Menu'
 
@@ -18,8 +18,9 @@ class Layout extends React.Component {
             <div className={classes.Layout}>
                  <Menu 
                     onToggle={this.onToggleHandler}
-                    isOpen={this.state.menu}/>
-                <main>
+                    isOpen={this.state.menu}
+                />
+                <main isOpen={this.state.menu}>
                     {this.props.children}
                 </main>
             </div>

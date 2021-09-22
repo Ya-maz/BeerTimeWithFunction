@@ -1,15 +1,23 @@
 .Menu {
     position: fixed;
     top: 40px;
-    left: 40px;
+    right: 40px;
     font-size: 20px;
     cursor: pointer;
-    color: #fff;
+    /* color: #fff; */
     transition: opacity .25s ease-in-out;
     z-index: 10;
 }
 
 .Menu:hover {
-    opacity: .7;
+    opacity: .2;
+}
+
+.Menu.open {
+    display: block;
+}
+
+.Menu.close {
+    display: block;
 }
 
