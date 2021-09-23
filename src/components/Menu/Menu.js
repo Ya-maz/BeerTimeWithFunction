@@ -9,7 +9,6 @@ class Menu extends React.Component {
             classes.Menu,
             'fa'
         ]
-        console.log('Menu', props)
     }
 
     classesHandler = () => {

@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import classes from './Input.module.css'
 
-function isInvalid (valid, touched, shouldVlidate) {
-    return !valid && shouldVlidate && touched
+function isInvalid (valid, touched, shouldValidate) {
+    return !valid && shouldValidate && touched
 }
 
 class Input extends Component {
@@ -16,10 +16,12 @@ class Input extends Component {
     }
 
 
-    classesHandler = boo => {
-        if (boo) {
+    classesHandler = () => {
+        console.log('работает функция',isInvalid(this.props.valid, this.props.shouldValidate, this.props.touched))
+        if (isInvalid(this.props.valid, this.props.shouldValidate, this.props.touched)) {
+            console.log('hi')
             this.cls.push(classes.invalid)
-        }
+        } else this.cls = this.cls.filter(el => el !== classes.invalid)
         return this.cls.join(' ')
     }
     
@@ -31,9 +33,9 @@ class Input extends Component {
                     type={this.inputType}
                     id = {this.htmlFor}
                     value={this.props.value}
-                    onChange={this.props.onChange}></input>
+                    onChange={this.props.onChange} />
                 {
-                    isInvalid(this.props) 
+                   isInvalid(this.props.valid, this.props.shouldValidate, this.props.touched)
                     ?  <span>{this.props.errorMessage || 'Введите верное значение'}</span>
                     : null
                 }

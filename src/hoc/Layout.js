@@ -17,10 +17,11 @@ class Layout extends React.Component {
         return (
             <div className={classes.Layout}>
                  <Menu 
-                    onToggle={this.onToggleHandler}
-                    isOpen={this.state.menu}
+                    onToggle={this.props.onToggle}
+                    isOpen={this.props.isOpen}
+                    
                 />
-                <main isOpen={this.state.menu}>
+                <main onClick={this.props.onToggle}>
                     {this.props.children}
                 </main>
             </div>
