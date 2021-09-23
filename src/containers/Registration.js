@@ -16,6 +16,7 @@ export default class Registration extends React.Component {
     }
 
     state = {
+        isFormValid: false,
         formControls:{
             email: {
                 value: '',
@@ -92,8 +93,14 @@ export default class Registration extends React.Component {
         
         formControls[controlName] = control
 
+        let isFormValid = true
+
+        Object.keys(formControls).forEach(name =>{
+            isFormValid = formControls[name].valid && isFormValid
+        })
+
         this.setState({
-            formControls
+            formControls, isFormValid
         })
     }
     //возможно ли здесь использовать стрелочную функцию?
@@ -123,10 +130,15 @@ export default class Registration extends React.Component {
                 <div >
                     <h1>Регистрация</h1>
 
-                    <form onSubmit={this.submitHandler} style={{'border': '1px solid red'}}>
+                    <form onSubmit={this.submitHandler}>
                         {this.showInputList()}
 
-                        <button type='success' onClick={this.registerHandler}>Зарегестрироваться</button>
+                        <button 
+                            type='success' 
+                            onClick={this.registerHandler}
+                            disabled={!this.state.isFormValid}
+                            >Зарегистрироваться</button>
+                        <button onClick={this.props.onToggle}>Отмена</button>
                     </form>
                 </div>
             </div>
