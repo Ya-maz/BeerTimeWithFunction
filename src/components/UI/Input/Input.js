@@ -17,9 +17,7 @@ class Input extends Component {
 
 
     classesHandler = () => {
-        console.log('работает функция',isInvalid(this.props.valid, this.props.shouldValidate, this.props.touched))
         if (isInvalid(this.props.valid, this.props.shouldValidate, this.props.touched)) {
-            console.log('hi')
             this.cls.push(classes.invalid)
         } else this.cls = this.cls.filter(el => el !== classes.invalid)
         return this.cls.join(' ')

@@ -2,7 +2,7 @@ import React from 'react'
 import classes from './Registration.module.css'
 import open from './RegOpen.module.css'
 import close from './RegClose.module.css'
-import Input from '../components/UI/Input/Input'
+import Input from './../../components/UI/Input/Input'
 
 function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -77,8 +77,6 @@ export default class Registration extends React.Component {
         if(validation.minLength){
             isValid = value.length >= validation.minLength && isValid
         }
-
-        console.log('validateControl', isValid)
         return isValid
     }
 
