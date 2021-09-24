@@ -3,8 +3,6 @@ import Layout from './hoc/Layout';
 import Registration from './containers/Registration/Registration';
 import Main from './containers/Main/Main';
 
-export const TubeForProps = React.createContext(false)
-
 class App extends React.Component {
 
   state = {
@@ -27,7 +25,7 @@ class App extends React.Component {
       }
       throw new Error('Request failed!');
     })
-    .then(jsonResponse => jsonResponse.splice(0,2))
+    .then(jsonResponse => jsonResponse.splice(0,5))
     .then(arr => {
       arr.forEach(element => {
         items.push({
@@ -35,7 +33,7 @@ class App extends React.Component {
           name: element.name,
           tagline: element.tagline,
           description: element.description,
-          image_url: element.image_url, 
+          imageUrl: element.image_url, 
           abv: element.abv, //alcohol by volume
           ibu: element.ibu, //international bittering unit
           ebc: element.ebc, //color Units Ebc (European Brewery Convention) 
@@ -56,10 +54,7 @@ class App extends React.Component {
   render () {
     return (
       <Layout isOpen={this.state.menu} onToggle={this.onToggleHandler}>
-        <TubeForProps.Provider value={this.state.beers}>
-          <Main />
-        </ TubeForProps.Provider>
-
+          <Main beers={this.state.beers}/>
         <Registration isOpen={this.state.menu} onToggle={this.onToggleHandler}/>  
       </Layout>
     );

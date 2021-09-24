@@ -2,6 +2,14 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  flex-grow: 1;
   border: 1px solid black;
+  width: 165px;
+  height: 300px;
+  margin: 0 10px;
 }
+
+.Card img {
+  width: 165px;
+  height: 245px;
+}
+

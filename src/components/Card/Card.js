@@ -5,17 +5,16 @@ import classes from './Card.module.css'
 
 export default class Card extends React.Component {
   render() {
+    console.log(this.props.beer.imageUrl)
     return(
       <div className={classes.Card}>
-        <img alt={'img'}></img>
-        <p>Пивасик</p>
-        <div>
-          <div>
-            {/* <TubeForProps.Consumer>
-              {beers => <img alt={'img'} src={beers[0].image_url}></img>}
-            </TubeForProps.Consumer> */}
-          </div>
-        </div>
+        <img alt={'img'} src={this.props.beer ?
+           this.props.beer.imageUrl
+           : null}>
+        </img>
+        <bold>{this.props.beer ?
+           this.props.beer.name
+           : null}</bold>
       </div>
     )
   }
