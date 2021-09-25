@@ -1,0 +1,7 @@
+.Filter {
+  display: flex;
+  position: absolute;
+  
+  border: 1px solid red;
+  border-radius: 4px;
+}
