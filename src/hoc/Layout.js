@@ -1,6 +1,7 @@
  import React from 'react'
 import classes from './Layout.module.css'
 import Menu from './../components/Menu/Menu'
+import Logo from './../components/Logo/Logo'
 
 class Layout extends React.Component {
     state = {
@@ -16,11 +17,11 @@ class Layout extends React.Component {
     render () {
         return (
             <div className={classes.Layout}>
-                 <Menu 
+                <Menu 
                     onToggle={this.props.onToggle}
                     isOpen={this.props.isOpen}
-                    
                 />
+                <Logo />
                 <main onClick={this.props.onToggle}>
                     {this.props.children}
                 </main>

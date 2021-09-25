@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  border: 1px solid black;
+  border: 4px solid #5e492a;
+  border-radius: 20px;
   width: 165px;
   height: 300px;
   margin: 0 10px;

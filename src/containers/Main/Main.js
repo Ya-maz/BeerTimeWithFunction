@@ -8,8 +8,8 @@ export default class Main extends React.Component {
   //   super(props)
   // }
   render() {
-    const fullCard = this.props.beers.map(element => 
-    <Card beer={element} />
+    const fullCard = this.props.beers.map((element, index) => 
+    <Card key={element+index} beer={element} />
     )
     return(
       <div className={classes.Main}>
