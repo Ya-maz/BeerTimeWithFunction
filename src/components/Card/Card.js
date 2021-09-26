@@ -5,7 +5,6 @@ import classes from './Card.module.css'
 
 export default class Card extends React.Component {
   render() {
-    console.log(this.props.beer.imageUrl)
     return(
       <div className={classes.Card}>
         <img alt={'img'} src={this.props.beer ?
@@ -18,7 +17,7 @@ export default class Card extends React.Component {
           justifyContent: 'flex-start',
           textAlign: 'start',
           height: '30px',
-          lineHeight: '20px',
+          lineHeight: '10px',
           fontSize: '12px',
 
         }}>
@@ -26,7 +25,7 @@ export default class Card extends React.Component {
           <div>alcohol by volume: {this.props.beer.abv}</div>
           <div>international bittering unit: {this.props.beer.ibu}</div>
           <div>color Units Ebc: {this.props.beer.ebc}</div>
-          <div>{this.props.beer.tagline}</div>
+          {/* <div>{this.props.beer.tagline}</div> */}
         </div>
       </div>
     )

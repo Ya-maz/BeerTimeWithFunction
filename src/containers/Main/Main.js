@@ -4,9 +4,6 @@ import Card from './../../components/Card/Card'
 
 
 export default class Main extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  // }
   render() {
     const fullCard = this.props.beers.map((element, index) => 
     <Card key={element+index} beer={element} />
@@ -16,8 +13,6 @@ export default class Main extends React.Component {
         <div style={{
                             display:'flex',
                             justifyContent: 'flex-start',
-                            color:'red',
-                            border: '1px solid blue',
                             paddingLeft: '10px',
 
                           }}>
@@ -27,7 +22,6 @@ export default class Main extends React.Component {
                       display: 'flex',
                       flexDirection: 'row',
                       justifyContent: 'space-around',
-                      color: 'red',
                       }}>
           {fullCard}
         </div>

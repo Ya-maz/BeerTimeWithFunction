@@ -1,7 +1,9 @@
- import React from 'react'
+import React from 'react'
 import classes from './Layout.module.css'
 import Menu from './../components/Menu/Menu'
 import Logo from './../components/Logo/Logo'
+import Filter from '../components/Filter/Filter'
+
 
 class Layout extends React.Component {
     state = {
@@ -22,6 +24,7 @@ class Layout extends React.Component {
                     isOpen={this.props.isOpen}
                 />
                 <Logo />
+                <Filter onFilterALCHandler={this.props.onFilterALCHandler}/>
                 <main onClick={this.props.onToggle}>
                     {this.props.children}
                 </main>
