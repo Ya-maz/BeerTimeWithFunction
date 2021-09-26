@@ -10,3 +10,8 @@
   border: 10px solid #5e492a;
   border-radius: 35px;
 }
+
+.Main.open{
+  color: red;
+  opacity: .2;
+}

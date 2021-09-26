@@ -8,6 +8,7 @@ class App extends React.Component {
   state = {
       menu: false,
       beers: [],
+      filterBeers: false,
     }
 
   onToggleHandler = () => {
@@ -17,17 +18,16 @@ class App extends React.Component {
   }
 
   onFilterALCHandler = event => {
-    console.log('user filter', event.target.value);
     const beers = this.state.beers
-    const filterBeers = beers.filter(beer =>  Math.trunc(beer.abv) === Number(event.target.value))
-    console.log(filterBeers);
+    const filterBeers = beers.filter(beer => event.target.value ? 
+      Math.trunc(beer.abv) === Number(event.target.value) :
+      beers)
+      this.setState(() => {
+        return {filterBeers: filterBeers}
+      })
+    
     };
 
-    // Math.trunc(beer.abv) === 0 ||
-
-
-
-  
   componentDidMount() {
     const items = []
     fetch('https://api.punkapi.com/v2/beers')
@@ -37,7 +37,7 @@ class App extends React.Component {
       }
       throw new Error('Request failed!');
     })
-    .then(jsonResponse => jsonResponse.splice(0,5))
+    .then(jsonResponse => jsonResponse.splice(0,20))
     .then(arr => {
       arr.forEach(element => {
         items.push({
@@ -68,10 +68,14 @@ class App extends React.Component {
       <Layout 
               isOpen={this.state.menu} 
               onToggle={this.onToggleHandler}
-              onFilterALCHandler={this.onFilterALCHandler}
-      >
-          <Main beers={this.state.beers}/>
+              onFilterALCHandler={this.onFilterALCHandler}>
+
+        <Main 
+          isOpen={this.state.menu}
+          beers={this.state.beers}
+          filterBeers={this.state.filterBeers}/>
         <Registration isOpen={this.state.menu} onToggle={this.onToggleHandler}/>  
+
       </Layout>
     );
   }

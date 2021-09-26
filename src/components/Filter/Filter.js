@@ -11,14 +11,12 @@ export default class Filter extends React.Component {
                       flexDirection: 'row'}}>
           <div>ALC:&nbsp;</div>
           <select id="filter" onChange={this.props.onFilterALCHandler}>
-            <option value="null"></option>
-            <option value="3">3-4</option>
+            <option value=""></option>
             <option value="4">4-5</option>
             <option value="5">5-6</option>
             <option value="6">6-7</option>
             <option value="7">7-8</option>
             <option value="8">8-9</option>
-            <option value="9">9-10</option>
           </select>
         </div>
       </div>
