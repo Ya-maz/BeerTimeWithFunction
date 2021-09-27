@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './Main.module.css'
 import Card from './../../components/Card/Card'
+import { classesHandlerForMain, showFullCard } from '../../utils';
 
 
 export default class Main extends React.Component {
@@ -9,48 +10,17 @@ export default class Main extends React.Component {
 
     this.cls = [classes.Main]
   }
-
-  classesHandler = () => {
-    if (this.props.isOpen) {
-      this.cls.push(classes.open)
-      return this.cls.join(' ')
-    }
-    this.cls = this.cls.filter(el => el !== classes.open)
-    return this.cls.join(' ')
-  }
   
   render() {
-
-    let fullCard
-    if (this.props.filterBeers){
-      fullCard = this.props.filterBeers.map((element, index) => 
-      <Card key={element+index} beer={element} />
-      )
-    } else {
-      fullCard = this.props.beers.map((element, index) => 
-      <Card key={element+index} beer={element} />
-      )
-    }
     return(
-      <div className={this.classesHandler()}>
-        <div style={{
-                            display:'flex',
-                            justifyContent: 'flex-start',
-                            paddingLeft: '10px',
-
-                          }}>
+      <div className={classesHandlerForMain.call(this, classes)}>
+        <div className={classes.MainTitle}>
           <h1 >CHOOSE YOUR DESTINY</h1>
         </div>
-        <div style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-around',
-                      flexWrap: 'wrap',
-                      }}>
-          {fullCard}
+        <div className={classes.MainItems}>
+          {showFullCard.call(this, Card)}
         </div>
       </div>
     )
   }
 }
-

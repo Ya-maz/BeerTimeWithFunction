@@ -7,20 +7,11 @@ export default class Card extends React.Component {
   render() {
     return(
       <div className={classes.Card}>
-        <img alt={'img'} src={this.props.beer ?
+        <img alt='img' src={this.props.beer ?
            this.props.beer.imageUrl
            : null}>
         </img>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-start',
-          textAlign: 'start',
-          height: '30px',
-          lineHeight: '10px',
-          fontSize: '12px',
-
-        }}>
+        <div className={classes.CardInfo}>
           <div>name: {this.props.beer.name}</div>
           <div>alcohol by volume: {this.props.beer.abv}</div>
           <div>international bittering unit: {this.props.beer.ibu}</div>

@@ -24,6 +24,12 @@
       "react-app/jest"
     ]
   },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": true,
+    "jsxSingleQuote": true,
+    "bracketSpacing": true
+  },
   "browserslist": {
     "production": [
       ">0.2%",

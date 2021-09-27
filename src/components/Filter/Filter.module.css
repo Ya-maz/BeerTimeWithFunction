@@ -8,5 +8,8 @@
   border: 1px solid grey;
   border-radius: 4px;
   padding: 5px;
-
+}
+.FilterSelect {
+  display: flex;
+  flex-direction: row;
 }

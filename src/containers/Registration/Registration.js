@@ -1,21 +1,15 @@
 import React from 'react'
 import classes from './Registration.module.css'
-import open from './RegOpen.module.css'
-import close from './RegClose.module.css'
 import Input from './../../components/UI/Input/Input'
-
-function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
+import { classesHandlerForRegistration, submitHandler, showInputList } from './../../utils'
 
 export default class Registration extends React.Component {
-    constructor(props){
+  constructor(props){
         super(props)    
         this.cls = [classes.Registration]
-    }
+  }
 
-    state = {
+  state = {
         isFormValid: false,
         formControls:{
             email: {
@@ -44,102 +38,31 @@ export default class Registration extends React.Component {
             }
 
         }
-    }
+  }
+  // registerHandler = () => {
+  // }
 
-    classesHandler = () => {
-        if (this.props.isOpen){
-            this.cls.push(open.Registration)
-            this.cls = this.cls.filter(element => element !== close.Registration)
-        } else {
-            this.cls.push(close.Registration)
-            this.cls = this.cls.filter(element => element !== open.Registration)
-        }
-        return this.cls.join(' ')
-    }
-    registerHandler = () => {
-    }
-    submitHandler = event => {
-        event.preventDefault()
-    }
+  render() {
+    return (
+      <div className={classesHandlerForRegistration.call(this, classes)} 
+        onClick={event => event.stopPropagation() }>
+          <div >
+            <h1>Регистрация</h1>
 
-    validateControl (value, validation) {
-        if (!validation){
-            return true
-        }
-        let isValid = true
+            <form onSubmit={submitHandler.bind(this)}>
+              { showInputList.call(this, Input) }
 
-        if(validation.required){
-            isValid = value.trim() !== '' && isValid
-        }
-        if(validation.email){
-            isValid = validateEmail(value) && isValid
-        }
-        if(validation.minLength){
-            isValid = value.length >= validation.minLength && isValid
-        }
-        return isValid
-    }
-
-    onChangeHandler = (event, controlName) => {
-        const formControls = {...this.state.formControls}
-        const control = {...formControls[controlName]}
-        control.touched = true
-
-        control.value = event.target.value
-        control.touched = true
-        control.valid = this.validateControl(control.value, control.validation)
-        
-        formControls[controlName] = control
-
-        let isFormValid = true
-
-        Object.keys(formControls).forEach(name =>{
-            isFormValid = formControls[name].valid && isFormValid
-        })
-
-        this.setState({
-            formControls, isFormValid
-        })
-    }
-    //возможно ли здесь использовать стрелочную функцию?
-    showInputList = () => {
-        const inputs = Object.keys(this.state.formControls)
-            .map((controlName, index) => {
-                const control = this.state.formControls[controlName]
-                return (
-                    <Input 
-                        key={controlName + index}
-                        type={control.type}
-                        value={control.value}
-                        valid={control.valid}
-                        touched={control.touched}
-                        label={control.label}
-                        shouldValidate={!!control.validation}
-                        errorMessage={control.errorMessage}
-                        onChange={event => this.onChangeHandler(event, controlName)} />)
-            
-        })
-        return inputs
-    }
-    render() {
-        return (
-            <div className={this.classesHandler()} 
-                onClick={event => event.stopPropagation() }>
-                <div >
-                    <h1>Регистрация</h1>
-
-                    <form onSubmit={this.submitHandler}>
-                        {this.showInputList()}
-
-                        <button 
-                            type='success' 
-                            onClick={this.registerHandler}
-                            disabled={!this.state.isFormValid}
-                            >Зарегистрироваться</button>
-                        <button onClick={this.props.onToggle}>Отмена</button>
-                    </form>
-                </div>
+              <button 
+                type='success' 
+                onClick={this.props.onToggle}
+                disabled={!this.state.isFormValid}
+                >
+                Зарегистрироваться
+              </button>
+                <button onClick={this.props.onToggle}>Отмена</button>
+              </form>
             </div>
-        )
-    }
+        </div>
+    )
+  }
 }

@@ -23,5 +23,9 @@
     color: #3e2109;
     text-align:center;
 }
-
-
+.Open {
+    display: flex;
+}
+.Close {
+    display: none;
+}

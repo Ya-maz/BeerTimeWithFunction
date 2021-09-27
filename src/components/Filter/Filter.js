@@ -6,9 +6,7 @@ export default class Filter extends React.Component {
     return(
       <div className={classes.Filter}>
         <div>Фильтр</div>
-        <div style={{
-                      display: 'flex',
-                      flexDirection: 'row'}}>
+        <div className={classes.FilterSelect}>
           <div>ALC:&nbsp;</div>
           <select id="filter" onChange={this.props.onFilterALCHandler}>
             <option value=""></option>
