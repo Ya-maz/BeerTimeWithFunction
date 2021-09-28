@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from './hoc/Layout';
 import Registration from './containers/Registration/Registration';
 import Main from './containers/Main/Main';
-import {onToggleHandler, onFilterALCHandler, getFetch} from './utils'
+import {onToggleHandler, onFilterALCHandler, getFetch } from './utils'
 
 class App extends React.Component {
 
@@ -27,7 +27,10 @@ class App extends React.Component {
           isOpen={this.state.menu}
           beers={this.state.beers}
           filterBeers={this.state.filterBeers}/>
-        <Registration isOpen={this.state.menu} onToggle={onToggleHandler.bind(this)}/>  
+        <Registration 
+          isOpen={this.state.menu}
+          onToggle={onToggleHandler.bind(this)}
+          />  
 
       </Layout>
     );

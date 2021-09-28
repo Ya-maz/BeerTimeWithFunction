@@ -1,9 +1,16 @@
 export function onToggleHandler() {
-
   this.setState({
     menu: !this.state.menu
-      
-  })};
+  })
+};
+
+export function onSendHendler(event) {
+  this.setState((prev) => {
+    return {formControls: prev.formControls}
+  })
+}
+
+
 
 export function onFilterALCHandler(event) {
   const beers = this.state.beers
@@ -13,7 +20,6 @@ export function onFilterALCHandler(event) {
     this.setState(() => {
       return {filterBeers: filterBeers}
     })
-    console.log('inside function onFilter', this);
 };
 
 export function getFetch() {
@@ -123,11 +129,9 @@ function validateControl (value, validation) {
   return isValid
 }
 
-const onChangeHandler = (event, controlName) => {
+function onChangeHandler(event, controlName) {
   const formControls = {...this.state.formControls}
   const control = {...formControls[controlName]}
-  control.touched = true
-
   control.value = event.target.value
   control.touched = true
   control.valid = validateControl(control.value, control.validation)
@@ -139,7 +143,6 @@ const onChangeHandler = (event, controlName) => {
   Object.keys(formControls).forEach(name =>{
     isFormValid = formControls[name].valid && isFormValid
     })
-
   this.setState({
     formControls, isFormValid
   })
@@ -159,7 +162,18 @@ export function showInputList(Input) {
             label={control.label}
             shouldValidate={!!control.validation}
             errorMessage={control.errorMessage}
-            onChange={event => onChangeHandler(event, controlName)} />)
+            onChange={event => onChangeHandler.call(this, event, controlName)} />)
     })
   return inputs
+}
+
+export function isInvalid (valid, touched, shouldValidate) {
+  return !valid && shouldValidate && touched
+}
+
+export function classesHandlerForInput(classes) {
+  if (isInvalid(this.props.valid, this.props.shouldValidate, this.props.touched)) {
+    this.cls.push(classes.invalid)
+  } else this.cls = this.cls.filter(el => el !== classes.invalid)
+  return this.cls.join(' ')
 }

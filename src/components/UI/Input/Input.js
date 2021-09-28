@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
 import classes from './Input.module.css'
-
-function isInvalid (valid, touched, shouldValidate) {
-    return !valid && shouldValidate && touched
-}
+import { classesHandlerForInput, isInvalid } from './../../../utils'
 
 class Input extends Component {
     constructor (props){
@@ -15,17 +12,9 @@ class Input extends Component {
         this.label = this.props.label
     }
 
-
-    classesHandler = () => {
-        if (isInvalid(this.props.valid, this.props.shouldValidate, this.props.touched)) {
-            this.cls.push(classes.invalid)
-        } else this.cls = this.cls.filter(el => el !== classes.invalid)
-        return this.cls.join(' ')
-    }
-    
     render() {
         return (
-            <div className={this.classesHandler()}>
+            <div className={classesHandlerForInput.call(this, classes)}>
                 <label htmlFor={this.props.label}>{this.props.label}</label>
                 <input 
                     type={this.inputType}
@@ -36,6 +25,7 @@ class Input extends Component {
                    isInvalid(this.props.valid, this.props.shouldValidate, this.props.touched)
                     ?  <span>{this.props.errorMessage || 'Введите верное значение'}</span>
                     : null
+                    
                 }
                
             </div> 
