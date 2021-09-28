@@ -1,21 +1,46 @@
+import { URL, QUANTITY_OF_BEER_IN_THE_CATALOG} from './constants.js'
+
 export function onToggleHandler() {
   this.setState({
     menu: !this.state.menu
   })
 };
 
-export function onSendHendler(event) {
-  this.setState((prev) => {
-    return {formControls: prev.formControls}
+export function onSendHendler() {
+  this.setState({
+    formControls: {email: {
+      value: '',
+      type: 'email',
+      label: 'Email', 
+      errorMessage: 'Введите корректный email',
+      valid: false,
+      touched: false,
+      validation: {
+          required: true,
+          email: true
+      }
+  },
+  password: {
+      value: '',
+      type: 'password',
+      label: 'Пароль', 
+      errorMessage: 'Введите пароль не менее 6 символов',
+      valid: false,
+      touched: false,
+      validation: {
+          required: true,
+          minLength: 6,
+      }
+  }}
   })
+  this.props.onToggle()
 }
 
-
-
 export function onFilterALCHandler(event) {
+  const value =event.target.value
   const beers = this.state.beers
-  const filterBeers = beers.filter(beer => event.target.value ? 
-    Math.trunc(beer.abv) === Number(event.target.value) :
+  const filterBeers = beers.filter(beer => value ? 
+    Math.trunc(beer.abv) === Number(value) :
     beers)
     this.setState(() => {
       return {filterBeers: filterBeers}
@@ -24,14 +49,14 @@ export function onFilterALCHandler(event) {
 
 export function getFetch() {
   const items = []
-  fetch('https://api.punkapi.com/v2/beers')
+  fetch(URL)
   .then(response => {
     if (response.ok) {
       return response.json();
     }
     throw new Error('Request failed!');
   })
-  .then(jsonResponse => jsonResponse.splice(0,20))
+  .then(jsonResponse => jsonResponse.splice(0, QUANTITY_OF_BEER_IN_THE_CATALOG))
   .then(arr => {
     arr.forEach(element => {
       items.push({
@@ -148,7 +173,7 @@ function onChangeHandler(event, controlName) {
   })
 }
 
-export function showInputList(Input) {
+export function showInputList(Input, inputRef) {
   const inputs = Object.keys(this.state.formControls)
     .map((controlName, index) => {
       const control = this.state.formControls[controlName]
@@ -162,7 +187,10 @@ export function showInputList(Input) {
             label={control.label}
             shouldValidate={!!control.validation}
             errorMessage={control.errorMessage}
-            onChange={event => onChangeHandler.call(this, event, controlName)} />)
+            onChange={event => onChangeHandler.call(this, event, controlName)}
+            inputRef={inputRef}
+            />)
+            
     })
   return inputs
 }

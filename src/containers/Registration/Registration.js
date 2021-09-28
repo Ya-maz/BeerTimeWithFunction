@@ -40,12 +40,9 @@ export default class Registration extends React.Component {
 
         }
   }
-  // registerHandler = () => {
-  // }
-  // не работает зачистка поле в инпуте
+  
   render() {
-    console.log(this.state.formControls.email.value);
-    
+
     return (
       <div className={classesHandlerForRegistration.call(this, classes)} 
         onClick={ event => event.stopPropagation() }>
@@ -53,11 +50,10 @@ export default class Registration extends React.Component {
             <h1>Регистрация</h1>
 
             <form onSubmit={submitHandler.bind(this)}>
-              { showInputList.call(this, Input, this.state.isFormSend) }
+              { showInputList.call(this, Input) }
                 <button 
                   type='success' 
-                  // тута
-                  onClick={event => onSendHendler.bind(this, event)}
+                  onClick={onSendHendler.bind(this)}
                   disabled={!this.state.isFormValid}
                 >
                   Зарегистрироваться

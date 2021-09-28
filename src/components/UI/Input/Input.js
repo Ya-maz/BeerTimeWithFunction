@@ -20,7 +20,8 @@ class Input extends Component {
                     type={this.inputType}
                     id = {this.htmlFor}
                     value={this.props.value}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                    />
                 {
                    isInvalid(this.props.valid, this.props.shouldValidate, this.props.touched)
                     ?  <span>{this.props.errorMessage || 'Введите верное значение'}</span>
