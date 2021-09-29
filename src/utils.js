@@ -1,53 +1,63 @@
 import { URL, QUANTITY_OF_BEER_IN_THE_CATALOG} from './constants.js'
 
-export function onToggleHandler() {
-  this.setState({
-    menu: !this.state.menu
+export function onToggleHandler(setState) {
+  setState(prev => {
+    return {
+      ...prev,
+      menu: !prev.menu,}
   })
-};
+    
 
-export function onSendHendler() {
-  this.setState({
-    formControls: {email: {
-      value: '',
-      type: 'email',
-      label: 'Email', 
-      errorMessage: 'Введите корректный email',
-      valid: false,
-      touched: false,
-      validation: {
-          required: true,
-          email: true
-      }
-  },
-  password: {
-      value: '',
-      type: 'password',
-      label: 'Пароль', 
-      errorMessage: 'Введите пароль не менее 6 символов',
-      valid: false,
-      touched: false,
-      validation: {
-          required: true,
-          minLength: 6,
-      }
-  }}
-  })
-  this.props.onToggle()
 }
 
-export function onFilterALCHandler(event) {
-  const value =event.target.value
-  const beers = this.state.beers
+export function onSendHendler(onToggle, setState) {
+  setState(prev => {
+    return {
+      ...prev,
+      formControls:{
+        email: {
+            value: '',
+            type: 'email',
+            label: 'Email', 
+            errorMessage: 'Введите корректный email',
+            valid: false,
+            touched: false,
+            validation: {
+                required: true,
+                email: true
+            }
+        },
+        password: {
+            value: '',
+            type: 'password',
+            label: 'Пароль', 
+            errorMessage: 'Введите пароль не менее 6 символов',
+            valid: false,
+            touched: false,
+            validation: {
+                required: true,
+                minLength: 6,
+            }
+        }
+
+    }
+    }
+  })
+  onToggle()
+}
+
+export function onFilterALCHandler(beers, setState, event ) {
+  const value = event.target.value
   const filterBeers = beers.filter(beer => value ? 
     Math.trunc(beer.abv) === Number(value) :
     beers)
-    this.setState(() => {
-      return {filterBeers: filterBeers}
+  setState(prev => {
+    return {
+      ...prev,
+      filterBeers: filterBeers,}
     })
 };
-
-export function getFetch() {
+export function getFetch(setState) {
   const items = []
   fetch(URL)
   .then(response => {
@@ -74,57 +84,65 @@ export function getFetch() {
     })
     return items
   }).then(items => {
-      this.setState(() => {
-        return {beers: items }
+      setState((prev) => {
+        return {
+          ...prev,
+          beers: items }
       })
       
   })
   .catch(networkError => console.log(networkError.message));
 };
 
-export function classesHandlerForMenu() {
-  if (this.props.isOpen){
-    this.cls.push('fa-times')
-    this.cls = this.cls.filter(element => element !== 'fa-bars')
+export function classesHandlerForMenu(classes, isOpen) {
+  let cls = [
+    classes.Menu,
+    'fa'
+  ]
+  if (isOpen){
+    cls.push('fa-times')
+    cls = cls.filter(element => element !== 'fa-bars')
   } else {
-    this.cls.push('fa-bars')
-    this.cls = this.cls.filter(element => element !== 'fa-times')
+    cls.push('fa-bars')
+    cls = cls.filter(element => element !== 'fa-times')
   }
-  return this.cls.join(' ')
+  return cls.join(' ')
 }
 
-export function classesHandlerForMain(classes) {
-  if (this.props.isOpen) {
-    this.cls.push(classes.open)
-    return this.cls.join(' ')
+export function classesHandlerForMain(classes, isOpen) {
+  let cls = [classes.Main]
+  if (isOpen) {
+    cls.push(classes.open)
+    return cls.join(' ')
   }
-  this.cls = this.cls.filter(el => el !== classes.open)
-  return this.cls.join(' ')
+  cls = cls.filter(el => el !== classes.open)
+  return cls.join(' ')
 }
 
-export function showFullCard(Card) {
+export function showFullCard(Card, filterBeers, beers) {
   let fullCard
-  if (this.props.filterBeers){
-    fullCard = this.props.filterBeers.map((element, index) => 
+  if (filterBeers){
+    fullCard = filterBeers.map((element, index) => 
     <Card key={element+index} beer={element} />
     )
   } else {
-    fullCard = this.props.beers.map((element, index) => 
+    fullCard = beers.map((element, index) => 
     <Card key={element+index} beer={element} />
     )
   }
   return fullCard
 }
 
-export function classesHandlerForRegistration(classes) {
-  if (this.props.isOpen){
-      this.cls.push(classes.Open)
-      this.cls = this.cls.filter(element => element !== classes.Close)
+export function classesHandlerForRegistration(classes, isOpen) {
+  let cls = [classes.Registration]
+  if (isOpen){
+      cls.push(classes.Open)
+      cls = cls.filter(element => element !== classes.Close)
   } else {
-      this.cls.push(classes.Close)
-      this.cls = this.cls.filter(element => element !== classes.Open)
+      cls.push(classes.Close)
+      cls = cls.filter(element => element !== classes.Open)
   }
-  return this.cls.join(' ')
+  return cls.join(' ')
 }
 
 export function submitHandler(event) {
@@ -154,8 +172,7 @@ function validateControl (value, validation) {
   return isValid
 }
 
-function onChangeHandler(event, controlName) {
-  const formControls = {...this.state.formControls}
+function onChangeHandler(event, controlName, formControls, setState) {
   const control = {...formControls[controlName]}
   control.value = event.target.value
   control.touched = true
@@ -168,15 +185,20 @@ function onChangeHandler(event, controlName) {
   Object.keys(formControls).forEach(name =>{
     isFormValid = formControls[name].valid && isFormValid
     })
-  this.setState({
-    formControls, isFormValid
+  setState(prev => {
+    return {
+      ...prev,
+    formControls,
+    isFormValid
+    }
   })
 }
 
-export function showInputList(Input, inputRef) {
-  const inputs = Object.keys(this.state.formControls)
-    .map((controlName, index) => {
-      const control = this.state.formControls[controlName]
+
+
+export function showInputList(Input, formControls, setState) {
+  const inputs = Object.keys(formControls).map((controlName, index) => {
+      const control = formControls[controlName]
         return (
           <Input 
             key={controlName + index}
@@ -187,8 +209,7 @@ export function showInputList(Input, inputRef) {
             label={control.label}
             shouldValidate={!!control.validation}
             errorMessage={control.errorMessage}
-            onChange={event => onChangeHandler.call(this, event, controlName)}
-            inputRef={inputRef}
+            onChange={event => onChangeHandler.call(this, event, controlName, formControls, setState)}
             />)
             
     })
@@ -199,9 +220,11 @@ export function isInvalid (valid, touched, shouldValidate) {
   return !valid && shouldValidate && touched
 }
 
-export function classesHandlerForInput(classes) {
-  if (isInvalid(this.props.valid, this.props.shouldValidate, this.props.touched)) {
-    this.cls.push(classes.invalid)
-  } else this.cls = this.cls.filter(el => el !== classes.invalid)
-  return this.cls.join(' ')
+export function classesHandlerForInput(classes, props) {
+  const {valid, shouldValidate, touched} = props
+  let cls = [classes.Input]
+  if (isInvalid(valid, shouldValidate, touched)) {
+    cls.push(classes.invalid)
+  } else cls = cls.filter(el => el !== classes.invalid)
+  return cls.join(' ')
 }

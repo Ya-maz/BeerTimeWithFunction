@@ -1,37 +1,26 @@
-import React, {Component} from 'react'
+import React from 'react'
 import classes from './Input.module.css'
 import { classesHandlerForInput, isInvalid } from './../../../utils'
 
-class Input extends Component {
-    constructor (props){
-        super(props)
+export default function Input(props) {
 
-        this.inputType = props.type || 'text'
-        this.cls = [classes.Input]
-        this.htmlFor = `${this.inputType} - ${Math.random()}`
-        this.label = this.props.label
-    }
+  const inputType = props.type || 'text'
 
-    render() {
-        return (
-            <div className={classesHandlerForInput.call(this, classes)}>
-                <label htmlFor={this.props.label}>{this.props.label}</label>
-                <input 
-                    type={this.inputType}
-                    id = {this.htmlFor}
-                    value={this.props.value}
-                    onChange={this.props.onChange}
-                    />
-                {
-                   isInvalid(this.props.valid, this.props.shouldValidate, this.props.touched)
-                    ?  <span>{this.props.errorMessage || 'Введите верное значение'}</span>
-                    : null
-                    
-                }
-               
-            </div> 
-        )}
-    
+  const htmlFor = `${inputType} - ${Math.random()}`
+  return (
+    <div className={classesHandlerForInput.call(this, classes, props)}>
+      <label htmlFor={htmlFor}>{props.label}</label>
+      <input 
+        type={inputType}
+        id = {htmlFor}
+        value={props.value}
+        onChange={props.onChange}
+        />
+      {
+        isInvalid(props.valid, props.shouldValidate, props.touched)
+        ?  <span>{props.errorMessage || 'Введите верное значение'}</span>
+        : null
+      }
+    </div> 
+  )
 }
-
-export default Input

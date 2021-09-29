@@ -4,22 +4,19 @@ import Menu from './../components/Menu/Menu'
 import Logo from './../components/Logo/Logo'
 import Filter from '../components/Filter/Filter'
 
-class Layout extends React.Component {
-    render () {
-        return (
-            <div className={classes.Layout}>
-                <Menu 
-                    onToggle={this.props.onToggle}
-                    isOpen={this.props.isOpen}
-                />
-                <Logo />
-                <Filter onFilterALCHandler={this.props.onFilterALCHandler}/>
-                <main onClick={this.props.onToggle}>
-                    {this.props.children}
-                </main>
-            </div>
-        )
-    }
+export default function Layout(props) {
+  return (
+    <div className={classes.Layout}>
+      <Menu 
+        onToggle={props.onToggle}
+        isOpen={props.isOpen}
+      />
+      <Logo />
+      <Filter onFilterALCHandler={props.onFilterALCHandler}/>
+      <main onClick={props.onToggle}>
+        {props.children}
+      </main>
+    </div>
+  )
 }
 
-export default Layout
