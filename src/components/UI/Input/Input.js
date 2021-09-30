@@ -1,14 +1,23 @@
 import React from 'react'
 import classes from './Input.module.css'
-import { classesHandlerForInput, isInvalid } from './../../../utils'
+import { isInvalid } from './../../../utils'
 
-export default function Input(props) {
+const Input = (props) => {
 
   const inputType = props.type || 'text'
-
   const htmlFor = `${inputType} - ${Math.random()}`
+
+  const classesHandler = () => {
+    const {valid, shouldValidate, touched} = props
+    let cls = [classes.Input]
+    if (isInvalid(valid, shouldValidate, touched)) {
+      cls.push(classes.invalid)
+    } else cls = cls.filter(el => el !== classes.invalid)
+    return cls.join(' ')
+  }
+
   return (
-    <div className={classesHandlerForInput.call(this, classes, props)}>
+    <div className={classesHandler()}>
       <label htmlFor={htmlFor}>{props.label}</label>
       <input 
         type={inputType}
@@ -24,3 +33,4 @@ export default function Input(props) {
     </div> 
   )
 }
+export default Input

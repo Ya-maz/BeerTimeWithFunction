@@ -1,13 +1,13 @@
 import React from 'react';
 import classes from './Filter.module.css'
 
-export default function Filter(props) {
+const Filter = (props) => {
   return(
     <div className={classes.Filter}>
       <div>Фильтр</div>
       <div className={classes.FilterSelect}>
         <div>ALC:&nbsp;</div>
-        <select id="filter" onChange={e => {props.onFilterALCHandler(e)}}>
+        <select id="filter" onChange={event => {props.onFilterALCHandler(event)}}>
           <option value=""></option>
           <option value="4">4-5</option>
           <option value="5">5-6</option>
@@ -19,3 +19,4 @@ export default function Filter(props) {
     </div>
   )
 }
+export default Filter

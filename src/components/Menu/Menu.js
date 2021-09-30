@@ -1,13 +1,29 @@
 import React from 'react'
 import classes from './Menu.module.css'
-import {classesHandlerForMenu} from './../../utils'
 
-export default function Menu(props) {
+const Menu = (props) => {
+  
+  const classesHandler = () => {
+    let cls = [
+      classes.Menu,
+      'fa'
+    ]
+    if (props.isOpen){
+      cls.push('fa-times')
+      cls = cls.filter(element => element !== 'fa-bars')
+    } else {
+      cls.push('fa-bars')
+      cls = cls.filter(element => element !== 'fa-times')
+    }
+    return cls.join(' ')
+  }
+
   return(
     <i 
-      className={classesHandlerForMenu.call(this, classes, props.isOpen)}
+      className={classesHandler()}
       onClick={props.onToggle}
     ></i>
   )
 }
+export default Menu
 

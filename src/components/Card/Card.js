@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Card.module.css'
 
-export default function Card(props) {
+const Card =(props) => {
   return(
     <div className={classes.Card}>
       <img alt='img' src={props.beer ?
@@ -18,4 +18,4 @@ export default function Card(props) {
     </div>
   )
 }
-
+export default Card

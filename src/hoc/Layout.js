@@ -4,7 +4,7 @@ import Menu from './../components/Menu/Menu'
 import Logo from './../components/Logo/Logo'
 import Filter from '../components/Filter/Filter'
 
-export default function Layout(props) {
+const Layout = (props) => {
   return (
     <div className={classes.Layout}>
       <Menu 
@@ -19,4 +19,5 @@ export default function Layout(props) {
     </div>
   )
 }
+export default Layout
 
