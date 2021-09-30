@@ -2,7 +2,7 @@ import React, {useReducer, useEffect} from 'react';
 import Layout from './hoc/Layout';
 import Registration from './containers/Registration/Registration';
 import Main from './containers/Main/Main';
-import { getFetch } from './utils'
+import { getFetch } from './services'
 
 const App = () => {
 
